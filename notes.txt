@@ -1,0 +1,9 @@
+adaptable to any game
+  config file (.ini or .json maybe?)
+    game
+    #players
+  able to be set up within server with commands
+use embed format like rl6mans and charlemange
+use reactions instead of text commands
+  join/leave
+  vote captain/random captain/random teams
