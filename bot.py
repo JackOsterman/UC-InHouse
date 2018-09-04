@@ -1,18 +1,34 @@
 import discord
+from discord.ext import commands
 
 TOKEN = 'NDg1OTM1NjUzODcyMjA1ODc2.Dm3ydw.AiIoH4PeB7K8045kEGvSv4xugMA'
+BOT_PREFIX = "!"
 
-client = discord.Client()
+client = commands.Bot(command_prefix=BOT_PREFIX)
 
-@client.event
-async def on_message(message):
-    # we do not want the bot to reply to itself
-    if message.author == client.user:
-        return
+@client.command(name = 'hello',
+                description = 'Says hello to user',
+                pass_context = True)
+async def hello(context):
+    await client.say("Hello " + context.message.author.mention + "!")
 
-    if message.content.startswith('!hello'):
-        msg = 'Hello {0.author.mention}'.format(message)
-        await client.send_message(message.channel, msg)
+client.remove_command('help')
+
+@client.command(name='help',pass_context=True)
+async def help(context):
+    embed = discord.Embed(title = 'UC InHouse Bot',
+                            description = 'Runs InHouses for the following games',
+                            color = 0xe00122)
+    embed.add_field(name = 'Supported Games', value='League of Legends, Rocket League', inline=False)
+    embed.add_field(name='Bot maintained by',value='<@123627814166593538>')
+    await client.say(embed=embed)
+
+
+@client.command(name='queue',
+                aliases = ['q'],
+                pass_context = True)
+# async def queue(context):
+
 
 @client.event
 async def on_ready():
